@@ -51,24 +51,39 @@ public class BoardConfiguration {
 		return whiteCoordinates;
 	}
 	
+//	public boolean hasMorePebblesToReplace() {
+//		boolean replacementNeeded = false;
+//		findOppositeColoredNeighbors:
+//		for (Coordinate coordinate : boardMap.keySet()) {
+//			if(boardMap.get(coordinate).equals(PebbleColor.WHITE)) {
+//				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+//					if(boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
+//						replacementNeeded = true;
+//						break findOppositeColoredNeighbors;
+//					}
+//				}
+//			}
+//			else {
+//				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+//					if(boardMap.get(neighbor).equals(PebbleColor.WHITE)) {
+//						replacementNeeded = true;
+//						break findOppositeColoredNeighbors;
+//					}
+//				}
+//			}
+//		}
+//		return replacementNeeded;
+//	}
+	
 	public boolean hasMorePebblesToReplace() {
 		boolean replacementNeeded = false;
-		findOppositeColoredNeighbors:
+		outerLoop:
 		for (Coordinate coordinate : boardMap.keySet()) {
-			if(boardMap.get(coordinate).equals(PebbleColor.WHITE)) {
-				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-					if(boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
-						replacementNeeded = true;
-						break findOppositeColoredNeighbors;
-					}
-				}
-			}
-			else {
-				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-					if(boardMap.get(neighbor).equals(PebbleColor.WHITE)) {
-						replacementNeeded = true;
-						break findOppositeColoredNeighbors;
-					}
+			for (Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+				// If the two adjacent colors are not the same
+				if(!boardMap.get(coordinate).equals(boardMap.get(neighbor))) {
+					replacementNeeded = true;
+					break outerLoop;
 				}
 			}
 		}
