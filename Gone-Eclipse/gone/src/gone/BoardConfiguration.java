@@ -13,7 +13,7 @@ public class BoardConfiguration {
 			this.boardMap = boardMap;
 		}
 		else {
-			//throw invalid argument error
+			throw new IllegalArgumentException("Illegal coordinate in board configuration");
 		}
 	}
 	
@@ -36,8 +36,8 @@ public class BoardConfiguration {
 					boardMap.put(neighbor, PebbleColor.WHITE);
 				}
 			}
+			boardMap.remove(coordinate);
 		}
-		// Remove whiteCoordinates from the boardMap
 	}
 	
 	private static List<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
