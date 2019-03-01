@@ -15,20 +15,23 @@ public class Coordinate {
 	}
 	
 	public int getX() {
-		return this.x;
+		return x;
 	}
 	
 	public int getY() {
-		return this.y;
+		return y;
 	}
 	
 	public List<Coordinate> adjacentCoordinates(){
 		if(adjacentCoordinates == null) {
 			adjacentCoordinates = new ArrayList<>();
-			adjacentCoordinates.add(new Coordinate(this.x - 1, this.y));
-			adjacentCoordinates.add(new Coordinate(this.x + 1, this.y));
-			adjacentCoordinates.add(new Coordinate(this.x, this.y - 1));
-			adjacentCoordinates.add(new Coordinate(this.x, this.y + 1));
+			
+			int[] mods = {-1, 1};
+			for (int mod : mods) {
+				adjacentCoordinates.add(new Coordinate(x + mod, y));
+				adjacentCoordinates.add(new Coordinate(x, y + mod));
+			}
+			
 		}
 		return adjacentCoordinates;
 	}

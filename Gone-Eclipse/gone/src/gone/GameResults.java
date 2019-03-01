@@ -14,7 +14,7 @@ public class GameResults {
 		return rounds;
 	}
 
-	public boolean doesBlackPebbleRemain() {
+	public boolean isBlackPebbleRemaining() {
 		return blackPebbleRemaining;
 	}
 }
