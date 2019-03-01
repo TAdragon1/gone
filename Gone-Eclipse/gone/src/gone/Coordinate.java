@@ -22,7 +22,7 @@ public class Coordinate {
 		return y;
 	}
 	
-	public List<Coordinate> adjacentCoordinates(){
+	public List<Coordinate> getAdjacentCoordinates(){
 		if(adjacentCoordinates == null) {
 			adjacentCoordinates = new ArrayList<>();
 			

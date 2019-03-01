@@ -1,16 +1,18 @@
 package gone;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class BoardConfiguration {
 	
 	private Map<Coordinate, PebbleColor> boardMap;
+	private Set<Coordinate> whiteCoordinates;
 
 	public BoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
 		if(isValidBoardConfiguration(boardMap)) {
 			this.boardMap = boardMap;
+			this.whiteCoordinates = whitePebbleCoordinates(boardMap);
 		}
 		else {
 			throw new IllegalArgumentException("Illegal coordinate in board configuration");
@@ -29,9 +31,8 @@ public class BoardConfiguration {
 	}
 	
 	public void applyReplacementRulesOnce() {
-		List<Coordinate> whiteCoordinates = whitePebbleCoordinates(this.boardMap);
 		for(Coordinate coordinate : whiteCoordinates) {
-			for(Coordinate neighbor : coordinate.adjacentCoordinates()) {
+			for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
 				if(boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
 					boardMap.put(neighbor, PebbleColor.WHITE);
 				}
@@ -40,8 +41,8 @@ public class BoardConfiguration {
 		}
 	}
 	
-	private static List<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
-		List<Coordinate> whiteCoordinates = new LinkedList<>();
+	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
+		Set<Coordinate> whiteCoordinates = new HashSet<>();
 		for(Coordinate coordinate : boardMap.keySet()) {
 			if(boardMap.get(coordinate).equals(PebbleColor.WHITE)){
 				whiteCoordinates.add(coordinate);
@@ -55,7 +56,7 @@ public class BoardConfiguration {
 		findOppositeColoredNeighbors:
 		for (Coordinate coordinate : boardMap.keySet()) {
 			if(boardMap.get(coordinate).equals(PebbleColor.WHITE)) {
-				for(Coordinate neighbor : coordinate.adjacentCoordinates()) {
+				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
 					if(boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
 						replacementNeeded = true;
 						break findOppositeColoredNeighbors;
@@ -63,7 +64,7 @@ public class BoardConfiguration {
 				}
 			}
 			else {
-				for(Coordinate neighbor : coordinate.adjacentCoordinates()) {
+				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
 					if(boardMap.get(neighbor).equals(PebbleColor.WHITE)) {
 						replacementNeeded = true;
 						break findOppositeColoredNeighbors;
