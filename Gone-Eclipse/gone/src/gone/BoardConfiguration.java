@@ -30,7 +30,7 @@ public class BoardConfiguration {
 		return noInvalidCoordinates;
 	}
 	
-	public void applyReplacementRulesOnce() {
+	public boolean applyReplacementRulesOnce() {
 		for(Coordinate coordinate : whiteCoordinates) {
 			for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
 				if(boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
@@ -39,6 +39,7 @@ public class BoardConfiguration {
 			}
 			boardMap.remove(coordinate);
 		}
+		return hasMorePebblesToReplace();
 	}
 	
 	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
@@ -75,7 +76,7 @@ public class BoardConfiguration {
 //		return replacementNeeded;
 //	}
 	
-	public boolean hasMorePebblesToReplace() {
+	private boolean hasMorePebblesToReplace() {
 		boolean replacementNeeded = false;
 		outerLoop:
 		for (Coordinate coordinate : boardMap.keySet()) {
