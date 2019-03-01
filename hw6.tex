@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{times}
+\usepackage{fancyhdr,graphicx,amsmath,amssymb}
+\usepackage[ruled,vlined]{algorithm2e}
+
+\title{EECS 293 Assignment 6}
+\author{Keegan Simmons, Noah Houpt, Tyler Anderson}
+\date{February 28, 2019}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Objects}
+
+\subsection{Gone}
+Gone represents the game of Gone. 
+
+\subsubsection{Fields}
+Gone has two hidden fields, \textit{rounds} and \textit{gameBoard}.  \textit{rounds} is the number of rounds it takes to play Gone on the board configuration, and \textit{gameBoard} holds information on current BoardConfiguration state.
+
+\linebreak
+\subsubsection{Routines}
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{Gone( $boardConfiguration$ )}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}\SetKwInOut{Result}{Result}
+\Input{A BoardConfiguration $boardConfiguration$}
+\Output{A Gone object with a valid gameBoard}
+$gameBoard$ \xleftarrow[]{} boardConfiguration
+\end{algorithm}
+\linebreak
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{roundsAndBlackPebbleRemains}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}\SetKwInOut{Result}{Result}
+\Input{None}
+\Output{A Tuple of the number of iterations the game runs and whether or not a black pebble remains}
+\While{gameBoard.morePebblesToReplace()}{
+$gameBoard.applyReplacementRulesOnce()$\\
+$rounds$ \xleftarrow{} rounds + 1\\
+}
+return $rounds$, $gameBoard.blackRemains()$\\
+\end{algorithm}
+
+\linebreak
+\linebreak
+\subsection{BoardConfiguration} 
+BoardConfiguration represents the configuration of pebbles on the board. 
+
+\subsubsection{Fields}
+The BoardConfiguration hides \textit{boardMap}, a Map of pebble coordinates to their color.
+
+\subsubsection{Routines}
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{BoardConfiguration( $possibleBoardMap$ )}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}\SetKwInOut{Result}{Result}
+\Input{A Map of Coordinate objects mapped to PebbleColor values $possibleBoardMap$}
+\Output{A BoardConfiguration object that is a valid board}
+\Result{If the $possibleBoardMap$ is not a valid board, an $error$ will occur}
+\If{isValidBoardConfiguration($possibleBoardMap$)}{
+    $boardMap$ \xleftarrow[]{} possibleBoardMap\\
+}
+\Else{
+    $error$, invalid input\\
+}
+
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{isValidBoardConfiguration( $boardMap$ )}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{A Map of Coordinate objects mapped to PebbleColor values $boardMap$}
+\Output{$true$ if the $boardMap$ is valid, and $false$ otherwise}
+List $keys$ \xleftarrow[]{} $a list of keys in the $boardMap$ $\\
+noInvalidCoordinates \xleftarrow[]{} true\\
+\ForEach{$coordinate$ Coordinate object in $keys$}{
+    \If{$coordinate.x()$ $<$ 0 OR $coordinate.y()$ $<$ 0}{
+        noInvalidCoordinates \xleftarrow[]{} false\\
+        break out of for loop
+    }
+}
+return noInvalidCoordinates\\
+
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{applyReplacementRulesOnce}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}\SetKwInOut{Result}{Result}
+\Input{None}
+\Result{This BoardConfiguration object will have an updated boardMap for after the replacement rules have been applied once}
+
+List $whiteCoordinates$ \xleftarrow[]{} whitePebbleCoordinates(coordinates)\\
+
+\ForEach{$coordinate$ in $whiteCoordinates$}{
+    \ForEach{$neighbor$ in $coordinate.adjacentCoordinates()$}{
+        \If{$neighbor$ is a black pebble}{
+            $boardMap$ value at $neighbor$'s key \xleftarrow[]{} white\\
+        }
+    }
+}
+return $boardMap$\\
+
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{whitePebbleCoordinates}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{None}
+\Output{A List of all Coordinate objects mapped to a white pebble color in this $boardMap$}
+
+List $coordinates$ \xleftarrow[]{} $a list of keys in this $boardMap$ $\\
+List $whiteCoordinates$ \xleftarrow[]{} $empty$\\
+\ForEach{$coordinate$ in $coordinates$}{
+    \If{$boardMap$ value at $coordinate$ is white}{
+        add $coordinate$ to $whiteCoordinates$\\
+    }
+}
+return $whiteCoordinates$
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{morePebblesToReplace}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{None}
+\Output{A boolean value that is $true$ if there are pebbles that need to be replaced, and $false$ otherwise}
+$replacementNeeded$ \xleftarrow[]{} false\\
+\ForEach{$coordinate$ key in this $boardMap$}{
+\If{$boardMap$ value at $coordinate$ is white}{
+    \If{$coordinate$ has a neighbor with a black pebble}{
+    $replacementNeeded$ \xleftarrow[]{} true\\
+    break from the for each loop\\
+    }
+}
+\Else{
+    \If{$coordinate$ has a neighbor with a white pebble}{
+    $replacementNeeded$ \xleftarrow[]{} true\\
+    break from the for each loop\\
+    }
+}
+}
+return $replacementNeeded$\\
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{blackRemains}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{None}
+\Output{A boolean value that is $true$ when there is a black pebble remaining on the board and $false$ otherwise}
+$blackPebbleFound$ \xleftarrow[]{} false\\
+\ForEach{$coordinate$ key in this $boardMap$}{
+\If{$boardMap$ value at $coordinate$ is black}{
+$blackPebbleFound$ \xleftarrow[]{} true\\
+break from the for each loop\\
+}
+}
+return $blackPebbleFound$\\
+\end{algorithm}
+
+
+\subsection{PebbleColor}
+PebbleColor is an enumeration that represents the color of the pebble. The enumerations are \textit{Black} and \textit{White}.
+
+\subsection{Coordinate}
+Coordinate represents the pebble coordinates. 
+
+\subsubsection{Fields}It hides \textit{x}, \textit{y}, and \textit{adjacent}. \textit{x} is the integer x location on the board, \textit{y} is the integer y location on the board, and \textit{adjacent} is the List of Coordinate objects adjacent to this Coordinate.
+
+\subsubsection{Routines}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{Coordinate( $inputX$, $inputY$ )}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{An integer representing an x location in a 2D coordinate plane $inputX$, an integer representing a y location in a 2D coordinate plane $inputY$}
+\Output{A Coordinate object}
+$x$ \xleftarrow[]{} inputX\\
+$y$ \xleftarrow[]{} inputY\\
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{adjacentCoordinates}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{None}
+\Output{The List of Coordinate objects adjacent to this Coordinate}
+\If{$adjacent$ is empty}{
+$adjacentCoordinateList$ \xleftarrow[]{} $empty$\\
+add the neighboring coordinates to $adjacentCoordinateList$\\
+$adjacent$ \xleftarrow[]{} adjacentCoordinateList\\}
+return $adjacent$\\
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{x}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{None}
+\Output{The integer x location associated with this Coordinate}
+return $x$\\
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\caption{\textproc{y}}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{None}
+\Output{The integer y location associated with this Coordinate}
+return $y$\\
+\end{algorithm}
+
+\end{document}
