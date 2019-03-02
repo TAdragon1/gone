@@ -48,7 +48,7 @@ public class IntegrationTest {
 				
 		BoardConfiguration testConfiguration = new BoardConfiguration(testMap);
 		Gone testGame = new Gone(testConfiguration);
-		
+
 		// Test
 		GameResults testResults = testGame.roundsAndBlackPebbleRemains();
 				

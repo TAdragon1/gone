@@ -7,7 +7,7 @@ public class Coordinate {
 
 	private int x;
 	private int y;
-	private Set<Coordinate> adjacentCoordinates = null;
+	private Set<Coordinate> adjacentCoordinates = new HashSet<>();
 	
 	public Coordinate(int x, int y) {
 		this.x = x;
@@ -23,7 +23,7 @@ public class Coordinate {
 	}
 	
 	public Set<Coordinate> getAdjacentCoordinates(){
-		if(adjacentCoordinates == null) {
+		if(adjacentCoordinates.isEmpty()) {
 			adjacentCoordinates = new HashSet<>();
 			
 			int[] mods = {-1, 1};
@@ -36,9 +36,9 @@ public class Coordinate {
 		return adjacentCoordinates;
 	}
 	
-	public boolean equals(Coordinate c) {
+	public static boolean equals(Coordinate c1, Coordinate c2) {
 		boolean equalCoordinates = false;
-		if(this.x == c.getX() && this.y == c.getY()) {
+		if(c1.getX() == c2.getX() && c1.getY() == c2.getY()) {
 			equalCoordinates = true;
 		}
 		return equalCoordinates;
