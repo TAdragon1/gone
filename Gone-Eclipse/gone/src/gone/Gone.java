@@ -13,7 +13,6 @@ public class Gone {
 		while(gameBoard.hasMorePebblesToReplace()) {
 			gameBoard.applyReplacementRulesOnce();
 			rounds++;
-			System.out.println(rounds);
 		}
 		return new GameResults(gameBoard.blackRemains(), rounds);
 	}

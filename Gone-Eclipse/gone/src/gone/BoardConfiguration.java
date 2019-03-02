@@ -51,7 +51,6 @@ public class BoardConfiguration {
 				whiteCoordinates.add(coordinate);
 			}
 		}
-		System.out.println(whiteCoordinates);
 		return whiteCoordinates;
 	}
 	
