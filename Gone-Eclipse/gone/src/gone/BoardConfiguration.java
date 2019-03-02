@@ -53,27 +53,40 @@ public class BoardConfiguration {
 	
 	public boolean hasMorePebblesToReplace() {
 		boolean replacementNeeded = false;
-		findOppositeColoredNeighbors:
-		for (Coordinate coordinate : boardMap.keySet()) {
-			if(boardMap.get(coordinate).equals(PebbleColor.WHITE)) {
-				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-					if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
-						replacementNeeded = true;
-						break findOppositeColoredNeighbors;
-					}
-				}
-			}
-			else {
-				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-					if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.WHITE)) {
-						replacementNeeded = true;
-						break findOppositeColoredNeighbors;
-					}
+		for (Coordinate coordinate : whiteCoordinates) {
+			for (Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+				System.out.println(boardMap.get(neighbor));
+				if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
+					replacementNeeded = true;
 				}
 			}
 		}
 		return replacementNeeded;
 	}
+	
+//	public boolean hasMorePebblesToReplace() {
+//		boolean replacementNeeded = false;
+//		findOppositeColoredNeighbors:
+//		for (Coordinate coordinate : boardMap.keySet()) {
+//			if(boardMap.get(coordinate).equals(PebbleColor.WHITE)) {
+//				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+//					if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
+//						replacementNeeded = true;
+//						break findOppositeColoredNeighbors;
+//					}
+//				}
+//			}
+//			else {
+//				for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+//					if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.WHITE)) {
+//						replacementNeeded = true;
+//						break findOppositeColoredNeighbors;
+//					}
+//				}
+//			}
+//		}
+//		return replacementNeeded;
+//	}
 	
 //	public boolean hasMorePebblesToReplace() {
 //		boolean replacementNeeded = false;

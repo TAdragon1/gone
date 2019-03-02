@@ -1,13 +1,13 @@
 package gone;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Coordinate {
 
 	private int x;
 	private int y;
-	private List<Coordinate> adjacentCoordinates = null;
+	private Set<Coordinate> adjacentCoordinates = null;
 	
 	public Coordinate(int x, int y) {
 		this.x = x;
@@ -22,9 +22,9 @@ public class Coordinate {
 		return y;
 	}
 	
-	public List<Coordinate> getAdjacentCoordinates(){
+	public Set<Coordinate> getAdjacentCoordinates(){
 		if(adjacentCoordinates == null) {
-			adjacentCoordinates = new ArrayList<>();
+			adjacentCoordinates = new HashSet<>();
 			
 			int[] mods = {-1, 1};
 			for (int mod : mods) {
