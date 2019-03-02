@@ -20,14 +20,14 @@ public class BoardConfiguration {
 	}
 	
 	private static boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
-		boolean noInvalidCoordinates = true;
+		boolean validCoordinates = true;
 		for(Coordinate coordinate : boardMap.keySet()) {
 			if(coordinate.getX() < 0 || coordinate.getY() < 0) {
-				noInvalidCoordinates = false;
+				validCoordinates = false;
 				break;
 			}
 		}
-		return noInvalidCoordinates;
+		return validCoordinates;
 	}
 	
 	public void applyReplacementRulesOnce() {

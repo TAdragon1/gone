@@ -37,9 +37,10 @@ public class Coordinate {
 	}
 	
 	public boolean equals(Coordinate c) {
+		boolean equalCoordinates = false;
 		if(this.x == c.getX() && this.y == c.getY()) {
-			return true;
+			equalCoordinates = true;
 		}
-		return false;
+		return equalCoordinates;
 	}
 }
