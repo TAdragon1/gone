@@ -35,4 +35,11 @@ public class Coordinate {
 		}
 		return adjacentCoordinates;
 	}
+	
+	public boolean equals(Coordinate c) {
+		if(this.x == c.getX() && this.y == c.getY()) {
+			return true;
+		}
+		return false;
+	}
 }

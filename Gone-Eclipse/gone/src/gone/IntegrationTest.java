@@ -49,17 +49,13 @@ public class IntegrationTest {
 		BoardConfiguration testConfiguration = new BoardConfiguration(testMap);
 		Gone testGame = new Gone(testConfiguration);
 		
-		Coordinate test1 = new Coordinate(0, 0);
-		Coordinate test2 = new Coordinate(0, 0);
-		System.out.println(test1.equals(test2));
-		
 		// Test
-		//GameResults testResults = testGame.roundsAndBlackPebbleRemains();
+		GameResults testResults = testGame.roundsAndBlackPebbleRemains();
 				
 		// Assert
 		//assertEquals(3, testResults.getRounds());
 		//assertEquals(true, testResults.isBlackPebbleRemaining());
-		//System.out.println(testResults.getRounds());
-		//System.out.println(testResults.isBlackPebbleRemaining());
+		System.out.println(testResults.getRounds());
+		System.out.println(testResults.isBlackPebbleRemaining());
 	}
 }

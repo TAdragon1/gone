@@ -33,12 +33,15 @@ public class BoardConfiguration {
 	public void applyReplacementRulesOnce() {
 		for(Coordinate coordinate : whiteCoordinates) {
 			for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-				if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
-					boardMap.put(neighbor, PebbleColor.WHITE);
+				for(Coordinate key : boardMap.keySet()) {
+					if(key.equals(neighbor) && boardMap.get(key).equals(PebbleColor.BLACK)) {
+						boardMap.put(key, PebbleColor.WHITE);
+					}
 				}
 			}
 			boardMap.remove(coordinate);
 		}
+		whiteCoordinates = whitePebbleCoordinates(boardMap);
 	}
 	
 	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
@@ -48,6 +51,7 @@ public class BoardConfiguration {
 				whiteCoordinates.add(coordinate);
 			}
 		}
+		System.out.println(whiteCoordinates);
 		return whiteCoordinates;
 	}
 	
@@ -55,9 +59,12 @@ public class BoardConfiguration {
 		boolean replacementNeeded = false;
 		for (Coordinate coordinate : whiteCoordinates) {
 			for (Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-				System.out.println(boardMap.get(neighbor));
-				if(boardMap.get(neighbor) != null && boardMap.get(neighbor).equals(PebbleColor.BLACK)) {
-					replacementNeeded = true;
+				for (Coordinate key : boardMap.keySet()) {
+					if(neighbor.equals(key)) {
+						if(boardMap.get(key).equals(PebbleColor.BLACK)) {
+							replacementNeeded = true;
+						}
+					}
 				}
 			}
 		}
