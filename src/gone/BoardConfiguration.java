@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class BoardConfiguration {
-	
+
 	private Map<Coordinate, PebbleColor> boardMap;
 	private Set<Coordinate> whiteCoordinates;
 
@@ -31,7 +31,7 @@ public class BoardConfiguration {
 		return validCoordinates;
 	}
 	
-	public void applyReplacementRulesOnce() {
+	void applyReplacementRulesOnce() {
 		for(Coordinate coordinate : whiteCoordinates) {
 			for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
 				for(Coordinate key : boardMap.keySet()) {
@@ -45,7 +45,7 @@ public class BoardConfiguration {
 		whiteCoordinates = whitePebbleCoordinates(boardMap);
 	}
 	
-	public boolean hasMorePebblesToReplace() {
+	boolean hasMorePebblesToReplace() {
 		boolean replacementNeeded = false;
 		findBlackCoordinate:
 		for (Coordinate coordinate : whiteCoordinates) {
@@ -62,7 +62,7 @@ public class BoardConfiguration {
 	}
 
 	private boolean pebbleAtCoordinateIsBlack(Coordinate neighbor, Coordinate key) {
-		return Coordinate.equals(neighbor, key) && (boardMap.get(key) == PebbleColor.BLACK);
+		return equals(neighbor, key) && (boardMap.get(key) == PebbleColor.BLACK);
 	}
 
 	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
@@ -75,7 +75,7 @@ public class BoardConfiguration {
 		return whiteCoordinates;
 	}
 	
-	public boolean blackRemains() {
+	boolean blackRemains() {
 		boolean blackPebbleFound = false;
 		findBlackPebble:
 		for (Coordinate key : boardMap.keySet()) {
@@ -86,4 +86,13 @@ public class BoardConfiguration {
 		}
 		return blackPebbleFound;
 	}
+
+	private static boolean equals(Coordinate c1, Coordinate c2) {
+		boolean equalCoordinates = false;
+		if(c1.getX() == c2.getX() && c1.getY() == c2.getY()) {
+			equalCoordinates = true;
+		}
+		return equalCoordinates;
+	}
+
 }

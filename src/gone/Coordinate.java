@@ -14,15 +14,15 @@ public class Coordinate {
 		this.y = y;
 	}
 	
-	public int getX() {
+	int getX() {
 		return x;
 	}
 	
-	public int getY() {
+	int getY() {
 		return y;
 	}
 	
-	public Set<Coordinate> getAdjacentCoordinates(){
+	Set<Coordinate> getAdjacentCoordinates(){
 		if(adjacentCoordinates.isEmpty()) {
 			adjacentCoordinates = new HashSet<>();
 			
@@ -35,12 +35,5 @@ public class Coordinate {
 		}
 		return adjacentCoordinates;
 	}
-	
-	public static boolean equals(Coordinate c1, Coordinate c2) {
-		boolean equalCoordinates = false;
-		if(c1.getX() == c2.getX() && c1.getY() == c2.getY()) {
-			equalCoordinates = true;
-		}
-		return equalCoordinates;
-	}
+
 }

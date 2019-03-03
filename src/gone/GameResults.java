@@ -10,11 +10,11 @@ public class GameResults {
 		this.rounds = rounds;
 	}
 
-	public int getRounds() {
+	int getRounds() {
 		return rounds;
 	}
 
-	public boolean isBlackPebbleRemaining() {
+	boolean isBlackPebbleRemaining() {
 		return blackPebbleRemaining;
 	}
 }
