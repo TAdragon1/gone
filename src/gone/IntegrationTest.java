@@ -1,4 +1,4 @@
-package gone;
+package gone.src.gone;
 
 import java.util.HashMap;
 import java.util.Map;
