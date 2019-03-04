@@ -31,35 +31,34 @@ public class BoardConfiguration {
 		return validCoordinates;
 	}
 	
-	void applyReplacementRulesOnce() {
+	boolean applyReplacementRulesOnce() {
 		boolean replacementNeeded = false;
 		for(Coordinate coordinate : whiteCoordinates) {
 			for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
 				for(Coordinate key : boardMap.keySet()) {
 					if(pebbleAtCoordinateIsBlack(neighbor, key)) {
 						boardMap.put(key, PebbleColor.WHITE);
-						if(!replacementNeeded){
-							replacementNeeded = this.hasBlackNeighbors(key);
-						}
+					}
+					if(!replacementNeeded){
+						replacementNeeded = this.hasBlackNeighbors(key);
 					}
 				}
 			}
 			boardMap.remove(coordinate);
 		}
 		whiteCoordinates = whitePebbleCoordinates(boardMap);
+		return replacementNeeded;
 	}
 
-	private boolean hasBlackNeighbors(Coordinate coord){
+	private boolean hasBlackNeighbors(Coordinate coordinate){
 		boolean blackNeighborExists = false;
 
 		findBlackNeighbor:
-		for(Coordinate neighbor : coord.getAdjacentCoordinates()){
+		for(Coordinate neighbor : coordinate.getAdjacentCoordinates()){
 			for(Coordinate key : boardMap.keySet()){
-				if(Coordinate.equals(neighbor, key)){
-					if(boardMap.get(key) == PebbleColor.BLACK){
+				if(this.pebbleAtCoordinateIsBlack(neighbor, key)){
 						blackNeighborExists = true;
 						break findBlackNeighbor;
-					}
 				}
 			}
 		}

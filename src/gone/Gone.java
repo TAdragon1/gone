@@ -10,8 +10,8 @@ public class Gone {
 	
 	public GameResults finalGameResults() {
 		int rounds = 0;
-		while(gameBoard.hasMorePebblesToReplace()) {
-			gameBoard.applyReplacementRulesOnce();
+		while(gameBoard.applyReplacementRulesOnce()) {
+			//gameBoard.applyReplacementRulesOnce();
 			rounds++;
 		}
 		return new GameResults(gameBoard.blackRemains(), rounds);
