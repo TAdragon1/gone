@@ -65,22 +65,6 @@ public class BoardConfiguration {
 		return blackNeighborExists;
 	}
 
-	boolean hasMorePebblesToReplace() {
-		boolean replacementNeeded = false;
-		findBlackCoordinate:
-		for (Coordinate coordinate : whiteCoordinates) {
-			for (Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-				for (Coordinate key : boardMap.keySet()) {
-					if(pebbleAtCoordinateIsBlack(neighbor, key)) {
-						replacementNeeded = true;
-						break findBlackCoordinate;
-					}
-				}
-			}
-		}
-		return replacementNeeded;
-	}
-
 	private boolean pebbleAtCoordinateIsBlack(Coordinate neighbor, Coordinate key) {
 		return Coordinate.equals(neighbor, key) && (boardMap.get(key) == PebbleColor.BLACK);
 	}
