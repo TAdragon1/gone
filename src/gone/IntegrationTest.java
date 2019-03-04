@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class IntegrationTest {
 	
@@ -28,7 +29,7 @@ public class IntegrationTest {
 
 		// Assert
 		assertEquals(3, testResults.getRounds());
-		assertEquals(true, testResults.isBlackPebbleRemaining());
+		assertTrue(testResults.isBlackPebbleRemaining());
 	}
 
 }

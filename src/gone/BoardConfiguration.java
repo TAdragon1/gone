@@ -31,38 +31,28 @@ public class BoardConfiguration {
 		return validCoordinates;
 	}
 	
-	boolean applyReplacementRulesOnce() {
+	boolean applyReplacementRulesOnceAndHasBlack() {
 		boolean replacementNeeded = false;
 		for(Coordinate coordinate : whiteCoordinates) {
-			for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-				for(Coordinate key : boardMap.keySet()) {
-					if(pebbleAtCoordinateIsBlack(neighbor, key)) {
-						boardMap.put(key, PebbleColor.WHITE);
-					}
-					if(!replacementNeeded){
-						replacementNeeded = this.hasBlackNeighbors(key);
-					}
-				}
-			}
-			boardMap.remove(coordinate);
+			this.updateNeighbors(coordinate);
 		}
+
 		whiteCoordinates = whitePebbleCoordinates(boardMap);
+		if(whiteCoordinates.size() > 0){
+			replacementNeeded = true;
+		}
 		return replacementNeeded;
 	}
 
-	private boolean hasBlackNeighbors(Coordinate coordinate){
-		boolean blackNeighborExists = false;
-
-		findBlackNeighbor:
-		for(Coordinate neighbor : coordinate.getAdjacentCoordinates()){
-			for(Coordinate key : boardMap.keySet()){
-				if(this.pebbleAtCoordinateIsBlack(neighbor, key)){
-						blackNeighborExists = true;
-						break findBlackNeighbor;
+	private void updateNeighbors(Coordinate coordinate){
+		for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
+			for(Coordinate key : boardMap.keySet()) {
+				if(pebbleAtCoordinateIsBlack(neighbor, key)) {
+					boardMap.put(key, PebbleColor.WHITE);
 				}
 			}
 		}
-		return blackNeighborExists;
+		boardMap.remove(coordinate);
 	}
 
 	private boolean pebbleAtCoordinateIsBlack(Coordinate neighbor, Coordinate key) {
