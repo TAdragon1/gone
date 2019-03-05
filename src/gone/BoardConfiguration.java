@@ -15,12 +15,13 @@ public class BoardConfiguration {
 			this.whiteCoordinates = whitePebbleCoordinates(boardMap);
 		}
 		else {
-			throw new IllegalArgumentException("Illegal coordinate in board configuration");
+			throw new IllegalArgumentException("Illegal coordinate has negative values in board configuration");
 		}
 	}
 	
 	private static boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
 		boolean validCoordinates = true;
+
 		findInvalidCoordinates:
 		for(Coordinate coordinate : boardMap.keySet()) {
 			if(coordinate.getX() < 0 || coordinate.getY() < 0) {
@@ -28,6 +29,7 @@ public class BoardConfiguration {
 				break findInvalidCoordinates;
 			}
 		}
+
 		return validCoordinates;
 	}
 	
@@ -41,6 +43,7 @@ public class BoardConfiguration {
 		if(whiteCoordinates.size() > 0){
 			replacementNeeded = true;
 		}
+
 		return replacementNeeded;
 	}
 
@@ -52,6 +55,7 @@ public class BoardConfiguration {
 				}
 			}
 		}
+
 		boardMap.remove(coordinate);
 	}
 
@@ -61,16 +65,19 @@ public class BoardConfiguration {
 
 	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
 		Set<Coordinate> whiteCoordinates = new HashSet<>();
+
 		for(Coordinate coordinate : boardMap.keySet()) {
 			if(boardMap.get(coordinate) == PebbleColor.WHITE){
 				whiteCoordinates.add(coordinate);
 			}
 		}
+
 		return whiteCoordinates;
 	}
 	
 	boolean blackRemains() {
 		boolean blackPebbleFound = false;
+
 		findBlackPebble:
 		for (Coordinate key : boardMap.keySet()) {
 			if(boardMap.get(key) == PebbleColor.BLACK) {
@@ -78,6 +85,7 @@ public class BoardConfiguration {
 				break findBlackPebble;
 			}
 		}
+
 		return blackPebbleFound;
 	}
 

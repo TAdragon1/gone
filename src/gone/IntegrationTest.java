@@ -7,9 +7,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class IntegrationTest {
-	
+
 	@Test
-	public void testExampleFromAssignment6() {
+	public void testGoneExampleFromAssignment6() {
 		// Setup
 		Map<Coordinate, PebbleColor> testMap = new HashMap<>();
 		testMap.put(new Coordinate(0, 0), PebbleColor.BLACK);
