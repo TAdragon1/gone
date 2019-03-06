@@ -40,14 +40,11 @@ public class Coordinate {
 	public boolean equals(Object o){
 		boolean equalCoordinates = false;
 
-		try{
+		if(o instanceof Coordinate){
 			Coordinate c = (Coordinate) o;
 			if (this.getX() == c.getX() && this.getY() == c.getY()) {
 				equalCoordinates = true;
 			}
-		}
-		catch(RuntimeException e){
-			System.out.println("Input is not a Coordinate object");
 		}
 
 		return equalCoordinates;
