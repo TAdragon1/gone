@@ -10,9 +10,13 @@ public class Gone {
 	
 	public GameResults finalGameResults() {
 		int rounds = 0;
-		while(gameBoard.applyReplacementRulesOnceAndHasBlack()) {
-			rounds++;
+
+		while(gameBoard.hasUnvisitedBlackCoordinates()){
+			if(gameBoard.applyReplacementRulesOnce()) {
+				rounds++;
+			}
 		}
+
 		return new GameResults(gameBoard.blackRemains(), rounds);
 	}
 }

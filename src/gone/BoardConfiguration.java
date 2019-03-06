@@ -8,11 +8,13 @@ public class BoardConfiguration {
 
 	private Map<Coordinate, PebbleColor> boardMap;
 	private Set<Coordinate> whiteCoordinates;
+	private boolean shouldContinue;
 
 	public BoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
 		if(isValidBoardConfiguration(boardMap)) {
 			this.boardMap = boardMap;
 			this.whiteCoordinates = whitePebbleCoordinates(boardMap);
+			this.shouldContinue = true;
 		}
 		else {
 			throw new IllegalArgumentException("Illegal coordinate has negative values in board configuration");
@@ -32,34 +34,32 @@ public class BoardConfiguration {
 
 		return validCoordinates;
 	}
-	
-	boolean applyReplacementRulesOnceAndHasBlack() {
-		boolean replacementNeeded = false;
+
+	boolean hasUnvisitedBlackCoordinates(){
+		return whiteCoordinates.size() > 0 && shouldContinue;
+	}
+
+	boolean applyReplacementRulesOnce() {
+		shouldContinue = false;
+
 		for(Coordinate coordinate : whiteCoordinates) {
 			this.updateNeighbors(coordinate);
 			boardMap.remove(coordinate);
 		}
 
 		whiteCoordinates = whitePebbleCoordinates(boardMap);
-		if(whiteCoordinates.size() > 0){
-			replacementNeeded = true;
-		}
-
-		return replacementNeeded;
+		return shouldContinue;
 	}
 
 	private void updateNeighbors(Coordinate coordinate){
 		for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-			for(Coordinate key : boardMap.keySet()) {
-				if(pebbleAtCoordinateIsBlack(neighbor, key)) {
-					boardMap.put(key, PebbleColor.WHITE);
+			if(boardMap.keySet().contains(neighbor)){
+				if(boardMap.get(neighbor) == PebbleColor.BLACK){
+					boardMap.put(neighbor, PebbleColor.WHITE);
+					shouldContinue = true;
 				}
 			}
 		}
-	}
-
-	private boolean pebbleAtCoordinateIsBlack(Coordinate neighbor, Coordinate key) {
-		return neighbor.equals(key) && (boardMap.get(key) == PebbleColor.BLACK);
 	}
 
 	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
