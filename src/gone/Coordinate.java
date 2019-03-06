@@ -36,12 +36,17 @@ public class Coordinate {
 		return adjacentCoordinates;
 	}
 
-	static boolean equals(Coordinate c1, Coordinate c2) {
+	@Override
+	public boolean equals(Object o){
 		boolean equalCoordinates = false;
-		if(c1.getX() == c2.getX() && c1.getY() == c2.getY()) {
-			equalCoordinates = true;
+
+		if(o instanceof Coordinate){
+			Coordinate c = (Coordinate) o;
+			if (this.getX() == c.getX() && this.getY() == c.getY()) {
+				equalCoordinates = true;
+			}
 		}
+
 		return equalCoordinates;
 	}
-
 }

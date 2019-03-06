@@ -42,15 +42,9 @@ public class IntegrationTest {
 		// Setup
 		Map<Coordinate, PebbleColor> testMap = new HashMap<>();
 		testMap.put(new Coordinate(0, 0), PebbleColor.WHITE);
-		testMap.put(new Coordinate(1, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(2, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(3, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(4, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(5, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(6, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(7, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(8, 0), PebbleColor.BLACK);
-		testMap.put(new Coordinate(9, 0), PebbleColor.BLACK);
+		for(int i = 1; i < 10; i++){
+			testMap.put(new Coordinate(i, 0), PebbleColor.BLACK);
+		}
 
 		BoardConfiguration testConfiguration = new BoardConfiguration(testMap);
 		Gone testGame = new Gone(testConfiguration);

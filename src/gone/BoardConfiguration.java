@@ -37,6 +37,7 @@ public class BoardConfiguration {
 		boolean replacementNeeded = false;
 		for(Coordinate coordinate : whiteCoordinates) {
 			this.updateNeighbors(coordinate);
+			boardMap.remove(coordinate);
 		}
 
 		whiteCoordinates = whitePebbleCoordinates(boardMap);
@@ -55,12 +56,10 @@ public class BoardConfiguration {
 				}
 			}
 		}
-
-		boardMap.remove(coordinate);
 	}
 
 	private boolean pebbleAtCoordinateIsBlack(Coordinate neighbor, Coordinate key) {
-		return Coordinate.equals(neighbor, key) && (boardMap.get(key) == PebbleColor.BLACK);
+		return neighbor.equals(key) && (boardMap.get(key) == PebbleColor.BLACK);
 	}
 
 	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
