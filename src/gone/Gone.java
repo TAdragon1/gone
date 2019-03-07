@@ -12,7 +12,7 @@ public class Gone {
 		int rounds = 0;
 
 		while(gameBoard.hasUnvisitedBlackCoordinates()){
-			if(gameBoard.applyReplacementRulesOnce()) {
+			if(gameBoard.replacePebblesOnce()) {
 				rounds++;
 			}
 		}

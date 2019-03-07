@@ -13,7 +13,7 @@ public class BoardConfiguration {
 	public BoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
 		if(isValidBoardConfiguration(boardMap)) {
 			this.boardMap = boardMap;
-			this.whiteCoordinates = whitePebbleCoordinates(boardMap);
+			this.whiteCoordinates = whitePebbleCoordinates();
 			this.shouldContinue = true;
 		}
 		else {
@@ -39,7 +39,7 @@ public class BoardConfiguration {
 		return whiteCoordinates.size() > 0 && shouldContinue;
 	}
 
-	boolean applyReplacementRulesOnce() {
+	boolean replacePebblesOnce() {
 		shouldContinue = false;
 
 		for(Coordinate coordinate : whiteCoordinates) {
@@ -47,22 +47,20 @@ public class BoardConfiguration {
 			boardMap.remove(coordinate);
 		}
 
-		whiteCoordinates = whitePebbleCoordinates(boardMap);
+		whiteCoordinates = whitePebbleCoordinates();
 		return shouldContinue;
 	}
 
 	private void updateNeighbors(Coordinate coordinate){
 		for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-			if(boardMap.keySet().contains(neighbor)){
-				if(boardMap.get(neighbor) == PebbleColor.BLACK){
-					boardMap.put(neighbor, PebbleColor.WHITE);
-					shouldContinue = true;
-				}
+			if(boardMap.keySet().contains(neighbor) && (boardMap.get(neighbor) == PebbleColor.BLACK)){
+				boardMap.put(neighbor, PebbleColor.WHITE);
+				shouldContinue = true;
 			}
 		}
 	}
 
-	private static Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
+	private Set<Coordinate> whitePebbleCoordinates(){
 		Set<Coordinate> whiteCoordinates = new HashSet<>();
 
 		for(Coordinate coordinate : boardMap.keySet()) {
