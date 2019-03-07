@@ -9,7 +9,6 @@ public class Gone {
 	// rounds is the number of rounds it takes to play Gone on the board configuration
 	private int rounds = 0;
 
-	// Algorithm 1: Gone ( boardConfiguration )
 	// Input: A BoardConfiguration boardConfiguration
 	// Output: A Gone object with a valid gameBoard
 	public Gone(BoardConfiguration gameBoard) {
@@ -17,7 +16,6 @@ public class Gone {
 		this.gameBoard = gameBoard;
 	}
 
-	// Algorithm 2: finalGameResults
 	// Input: None
 	// Output: A tuple of the number of iterations the game runs and whether or not a black pebble remains
 	public GameResults finalGameResults() {
@@ -28,9 +26,7 @@ public class Gone {
 				// rounds ← rounds + 1
 				rounds++;
 			}
-			// End
 		}
-		// End
 		// Return rounds, gameBoard.blackRemains()
 		return new GameResults(rounds, gameBoard.blackRemains());
 	}

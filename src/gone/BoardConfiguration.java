@@ -14,7 +14,6 @@ public class BoardConfiguration {
 	private Set<Coordinate> whiteCoordinates;
 	private boolean shouldContinue;
 
-	// Algorithm 3: BoardConfiguration ( possibleBoardMap )
 	// Input: A Map of tuple of coordinates to their PebbleColor values possibleBoardMap
 	// Output: A BoardConfiguration object that is a valid board
 	// Result: If possibleBoardMap is not a valid board, an error will occur
@@ -35,10 +34,8 @@ public class BoardConfiguration {
 			// Error, invalid input
 			throw new IllegalArgumentException("Illegal coordinate has negative values in board configuration");
 		}
-		// End
 	}
 
-	// Algorithm 4: isValidBoardConfiguration ( possibleBoardMap )
 	// Input: A Map of tuple of coordinates to PebbleColor values possibleBoardMap
 	// Output: true if the possibleBoardMap is valid, and false otherwise
 	private static boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
@@ -57,14 +54,11 @@ public class BoardConfiguration {
 				// Break out of the Foreach loop
 				break findInvalidCoordinates;
 			}
-			// End
 		}
-		// End
-		// Return noInvalidCoordinates
+		// Return validCoordinates
 		return validCoordinates;
 	}
 
-	// Algorithm 5: replacePebblesOnce
 	// Input: None
 	// Output: A Boolean value that is true if a black pebble was replaced and false otherwise
 	// Result: This BoardConfiguration object will have an updated boardMap after the replacement rules have been applied once
@@ -79,7 +73,6 @@ public class BoardConfiguration {
 			// Remove coordinate from boardMap
 			boardMap.remove(coordinate);
 		}
-		// End
 
 		// whiteCoordinates ← whitePebbleCoordinates()
 		whiteCoordinates = whitePebbleCoordinates();
@@ -87,7 +80,6 @@ public class BoardConfiguration {
 		return shouldContinue;
 	}
 
-	// Algorithm 6: whitePebbleCoordinates
 	// Input: None
 	// Output: A Set of all tuples of coordinates mapped to white pebble color in this boardMap
 	private Set<Coordinate> whitePebbleCoordinates(){
@@ -100,14 +92,11 @@ public class BoardConfiguration {
 				// Add coordinate to whiteCoordinates
 				whiteCoordinates.add(coordinate);
 			}
-			// End
 		}
-		// End
 		// Return whiteCoordinates
 		return whiteCoordinates;
 	}
 
-	// Algorithm 7: blackRemains
 	// Input: None
 	// Output: A boolean value that is true when there is a black pebble remaining on the board and false otherwise
 	boolean blackRemains() {
@@ -115,7 +104,7 @@ public class BoardConfiguration {
 		boolean blackPebbleFound = false;
 
 		findBlackPebble:
-		// Foreach coordinate key in this boardMap Do
+		// Foreach coordinate tuple in the set of keys in this boardMap Do
 		for (Coordinate key : boardMap.keySet()) {
 			// If boardMap value at coordinate is black Then
 			if(boardMap.get(key) == PebbleColor.BLACK) {
@@ -124,14 +113,11 @@ public class BoardConfiguration {
 				// Break from the Foreach loop
 				break findBlackPebble;
 			}
-			// End
 		}
-		// End
 		// Return blackPebbleFound
 		return blackPebbleFound;
 	}
 
-	// Algorithm 8: hasUnvisitedBlackCoordinates
 	// Input: None
 	// Output: true if there is at least one black pebble on the board that hasn’t been visited and false otherwise
 	boolean hasUnvisitedBlackCoordinates(){
@@ -139,7 +125,6 @@ public class BoardConfiguration {
 		return shouldContinue && whiteCoordinates.size() > 0;
 	}
 
-	// Algorithm 9: updateNeighbors
 	// Input: coordinate coordinate tuple
 	// Result: Flips the color of all black neighbors of the input coordinate
 	private void updateNeighbors(Coordinate coordinate){
@@ -152,9 +137,7 @@ public class BoardConfiguration {
 				// shouldContinue ← true
 				shouldContinue = true;
 			}
-			// End
 		}
-		// End
 	}
 
 }
