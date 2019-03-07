@@ -5,9 +5,9 @@ public class GameResults {
 	private boolean blackPebbleRemaining;
 	private int rounds;
 	
-	public GameResults(boolean blackPebbleRemaining, int rounds) {
-		this.blackPebbleRemaining = blackPebbleRemaining;
+	public GameResults(int rounds, boolean blackPebbleRemaining) {
 		this.rounds = rounds;
+		this.blackPebbleRemaining = blackPebbleRemaining;
 	}
 
 	int getRounds() {
