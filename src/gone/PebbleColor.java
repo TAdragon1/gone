@@ -1,4 +1,4 @@
-package gone.src.gone;
+package gone;
 
 // PebbleColor is an enumeration that represents the color of the pebble.
 public enum PebbleColor {

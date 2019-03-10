@@ -1,4 +1,4 @@
-package gone.src.gone;
+package gone;
 
 // Gone represents the game of Gone.
 public class Gone {
@@ -12,7 +12,7 @@ public class Gone {
 	// Input: A BoardConfiguration boardConfiguration
 	// Output: A Gone object with a valid gameBoard
 	public Gone(BoardConfiguration gameBoard) {
-		// gameBoard ← boardConfiguration
+		// gameBoard <- boardConfiguration
 		this.gameBoard = gameBoard;
 	}
 
@@ -23,7 +23,7 @@ public class Gone {
 		while(gameBoard.hasUnvisitedBlackCoordinates()){
 			// If gameBoard.replacePebblesOnce() Then
 			if(gameBoard.replacePebblesOnce()) {
-				// rounds ← rounds + 1
+				// rounds <- rounds + 1
 				rounds++;
 			}
 		}

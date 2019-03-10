@@ -1,4 +1,4 @@
-package gone.src.gone;
+package gone;
 
 import org.junit.Test;
 

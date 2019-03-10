@@ -1,4 +1,4 @@
-package gone.src.gone;
+package gone;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,14 +23,11 @@ public class Coordinate {
 	}
 	
 	Set<Coordinate> getAdjacentCoordinates(){
-		if(adjacentCoordinates.isEmpty()) {
-			adjacentCoordinates = new HashSet<>();
+		adjacentCoordinates = new HashSet<>();
 
-			int[] mods = {-1, 1};
-			for (int mod : mods) {
-				adjacentCoordinates.add(new Coordinate(x + mod, y));
-				adjacentCoordinates.add(new Coordinate(x, y + mod));
-			}
+		int[][] mods = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+		for (int[] mod : mods) {
+			adjacentCoordinates.add(new Coordinate(x + mod[0], y + mod[1]));
 		}
 
 		return adjacentCoordinates;
