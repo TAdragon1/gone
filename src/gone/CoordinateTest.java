@@ -5,39 +5,53 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class CoordinateTest {
 
+    private static int testX = 0;
+    private static int testY = 0;
+    private static Coordinate testCoordinate = new Coordinate(testX, testY);
+
     @Test
-    public void testEquals(){
-        Coordinate coordinate = new Coordinate(5, 5);
-        Coordinate coordinate2 = new Coordinate(5, 5);
-        assertTrue(coordinate.equals(coordinate2));
+    public void coordinateDoesNotEqualADifferentObject(){
+        Object differentObject = new Object();
+
+        assertFalse(testCoordinate.equals(differentObject));
+    }
+
+    @Test
+    public void twoCoordinatesWithSameXDifferentYAreNotEqual(){
+        Coordinate differentY = new Coordinate(testX, testY + 1);
+
+        assertFalse(testCoordinate.equals(differentY));
+    }
+
+    @Test
+    public void twoCoordinatesWithSameYDifferentXAreNotEqual(){
+        Coordinate differentX = new Coordinate(testX + 1, testY);
+
+        assertFalse(testCoordinate.equals(differentX));
+    }
+
+    @Test
+    public void twoCoordinatesWithSameXAndYAreEqual(){
+        Coordinate sameXandY = new Coordinate(testX, testY);
+
+        assertTrue(testCoordinate.equals(sameXandY));
     }
 
     @Test
     public void testAdjacentCoordinates(){
-        Coordinate center = new Coordinate(1, 1);
 
-        Coordinate expectedLeft = new Coordinate(0, 1);
-        Coordinate expectedDown = new Coordinate(1, 0);
-        Coordinate expectedRight = new Coordinate(2, 1);
-        Coordinate expectedUp = new Coordinate(1, 2);
+        List<Coordinate> expectedAdjacents = Arrays.asList(new Coordinate(testX - 1, testY),
+                                                           new Coordinate(testX + 1, testY),
+                                                           new Coordinate(testX, testY - 1),
+                                                           new Coordinate(testX, testY + 1));
 
-        List<Coordinate> expectedCoords = new ArrayList<>();
-        expectedCoords.add(expectedLeft);
-        expectedCoords.add(expectedRight);
-        expectedCoords.add(expectedUp);
-        expectedCoords.add(expectedDown);
-
-        Set<Coordinate> actualCoords = center.getAdjacentCoordinates();
-
-        assertEquals(expectedCoords.size(), actualCoords.size());
-
-        for(Coordinate coord : actualCoords){
-            assertTrue(expectedCoords.contains(coord));
+        for(Coordinate actualAdjacent : testCoordinate.getAdjacentCoordinates()){
+            assertTrue(expectedAdjacents.contains(actualAdjacent));
         }
 
     }
