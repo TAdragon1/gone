@@ -10,9 +10,9 @@ import static org.junit.Assert.assertFalse;
 
 public class CoordinateTest {
 
-    private static int testX = 0;
-    private static int testY = 0;
-    private static Coordinate testCoordinate = new Coordinate(testX, testY);
+    private static final int testX = 0;
+    private static final int testY = 0;
+    private static final Coordinate testCoordinate = new Coordinate(testX, testY);
 
     @Test
     public void coordinateDoesNotEqualADifferentObject(){

@@ -1,6 +1,7 @@
 package gone;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public class BoardConfiguration {
 	// Output: A BoardConfiguration object that is a valid board
 	// Result: If possibleBoardMap is not a valid board, an error will occur
 	public BoardConfiguration(Map<Coordinate, PebbleColor> possibleBoardMap) {
-
+		Objects.requireNonNull(possibleBoardMap, "boardMap cannot be null");
 		// If isValidBoardConfiguration(possibleBoardMap) Then
 		if(isValidBoardConfiguration(possibleBoardMap)) {
 
@@ -41,22 +42,29 @@ public class BoardConfiguration {
 	private static boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
 
 		// validCoordinates <- true
-		boolean validCoordinates = true;
+		//boolean validCoordinates = true;
+		return boardMap.keySet().stream().anyMatch((c) -> (c.getX() < 0 || c.getY() < 0));
+//		findInvalidCoordinates:
+//		//Foreach coordinate tuple in the set of keys in the possibleBoardMap Do
+//		for(Coordinate coordinate : boardMap.keySet()) {
+//			// If either value in the tuple is negative Then
+//			if(coordinate.getX() < 0 || coordinate.getY() < 0) {
+//				// validCoordinates <- false
+//				validCoordinates = false;
+//
+//				// Break out of the Foreach loop
+//				break findInvalidCoordinates;
+//			}
+//		}
+//		// Return validCoordinates
+		//return validCoordinates;
+	}
 
-		findInvalidCoordinates:
-		//Foreach coordinate tuple in the set of keys in the possibleBoardMap Do
-		for(Coordinate coordinate : boardMap.keySet()) {
-			// If either value in the tuple is negative Then
-			if(coordinate.getX() < 0 || coordinate.getY() < 0) {
-				// validCoordinates <- false
-				validCoordinates = false;
+	public class BoardConfigurationTestHook{
 
-				// Break out of the Foreach loop
-				break findInvalidCoordinates;
-			}
+		public boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap){
+			return BoardConfiguration.isValidBoardConfiguration(boardMap);
 		}
-		// Return validCoordinates
-		return validCoordinates;
 	}
 
 	// Input: None
@@ -127,5 +135,4 @@ public class BoardConfiguration {
 			}
 		}
 	}
-
 }
