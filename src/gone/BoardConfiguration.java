@@ -125,14 +125,17 @@ public class BoardConfiguration {
 	// Result: Flips the color of all black neighbors of the input coordinate
 	private void updateNeighbors(Coordinate coordinate){
 		// Foreach neighbor tuple of coordinate’s neighbors Do
-		for(Coordinate neighbor : coordinate.getAdjacentCoordinates()) {
-			// If neighbor is a key in this boardmap AND the neighbor’s color is black Then
-			if(boardMap.keySet().contains(neighbor) && (boardMap.get(neighbor) == PebbleColor.BLACK)){
-				// set boardmap at key neighbor to white
-				boardMap.put(neighbor, PebbleColor.WHITE);
-				// boardModifiedOnLastUpdate <- true
-				boardModifiedOnLastUpdate = true;
-			}
-		}
+		// If neighbor is a key in this boardmap AND the neighbor’s color is black Then
+		// set boardmap at key neighbor to white
+		// boardModifiedOnLastUpdate <- true
+
+		long num =
+				coordinate.getAdjacentCoordinates().stream()
+						.filter(neighbor -> boardMap.keySet().contains(neighbor) && (boardMap.get(neighbor) == PebbleColor.BLACK))
+						.peek(neighbor -> boardMap.put(neighbor, PebbleColor.WHITE))
+						.peek(neighbor -> boardModifiedOnLastUpdate = true) //or remove this and uncomment line 131
+						.count();
+
+		//boardModifiedOnLastUpdate = num > 0 || boardModifiedOnLastUpdate;
 	}
 }
