@@ -43,7 +43,7 @@ public class BoardConfiguration {
 
 		// validCoordinates <- true
 		//boolean validCoordinates = true;
-		return boardMap.keySet().stream().anyMatch((c) -> (c.getX() < 0 || c.getY() < 0));
+		return boardMap.keySet().stream().anyMatch((c) -> (!(c.getX() < 0 || c.getY() < 0)));
 //		findInvalidCoordinates:
 //		//Foreach coordinate tuple in the set of keys in the possibleBoardMap Do
 //		for(Coordinate coordinate : boardMap.keySet()) {
@@ -60,7 +60,7 @@ public class BoardConfiguration {
 		//return validCoordinates;
 	}
 
-	public class BoardConfigurationTestHook{
+	public static class BoardConfigurationTestHook{
 
 		public boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap){
 			return BoardConfiguration.isValidBoardConfiguration(boardMap);
