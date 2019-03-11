@@ -53,7 +53,6 @@ public class CoordinateTest {
         for(Coordinate actualAdjacent : testCoordinate.getAdjacentCoordinates()){
             assertTrue(expectedAdjacents.contains(actualAdjacent));
         }
-
     }
 
 }

@@ -2,7 +2,9 @@ package gone;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
@@ -13,36 +15,32 @@ public class BoardConfigurationTest {
     private static final int invalidValue = -1;
     private static final int validValue = 1;
     private static final BoardConfiguration.BoardConfigurationTestHook testHook = new BoardConfiguration.BoardConfigurationTestHook();
+    private static final Map<Coordinate, PebbleColor> testMap = new HashMap<>();
 
     @Test
-    public void isValidBoardConfigurationReturnsFalseWhenInvalidXAndYInMap(){
-        Map<Coordinate, PebbleColor> testMap = new HashMap<>();
-        testMap.put(new Coordinate(invalidValue, invalidValue), PebbleColor.BLACK);
+    public void isValidBoardConfigurationReturnsFalseForEachInvalidCoordinate(){
+        List<Coordinate> invalidCoordinates = Arrays.asList(
+                new Coordinate(invalidValue, invalidValue), // Invalid X, Invalid Y, should return False
+                new Coordinate(validValue, invalidValue),   // Valid X, Invalid Y, should return False
+                new Coordinate(invalidValue, validValue));   // Invalid X, Valid Y, should return False
 
-        assertFalse(testHook.isValidBoardConfiguration(testMap));
+        for(Coordinate testCoordinate : invalidCoordinates){
+            testMap.put(testCoordinate, PebbleColor.BLACK);
+
+            assertFalse(testHook.isValidBoardConfiguration(testMap));
+
+            testMap.remove(testCoordinate);
+        }
     }
 
     @Test
-    public void isValidBoardConfigurationReturnsFalseWhenOnlyInvalidXInMap(){
-        Map<Coordinate, PebbleColor> testMap = new HashMap<>();
-        testMap.put(new Coordinate(invalidValue, invalidValue), PebbleColor.BLACK);
+    public void isValidBoardConfigurationReturnsTrueOnValidCoordinate(){
+        Coordinate validCoordinate = new Coordinate(validValue, validValue);
 
-        assertFalse(testHook.isValidBoardConfiguration(testMap));
-    }
-
-    @Test
-    public void isValidBoardConfigurationReturnsFalseWhenOnlyInvalidYInMap(){
-        Map<Coordinate, PebbleColor> testMap = new HashMap<>();
-        testMap.put(new Coordinate(validValue, invalidValue), PebbleColor.BLACK);
-        
-        assertFalse(testHook.isValidBoardConfiguration(testMap));
-    }
-
-    @Test
-    public void isValidBoardConfigurationReturnsTrueWhenOnlyValidCoordinatesInMap(){
-        Map<Coordinate, PebbleColor> testMap = new HashMap<>();
-        testMap.put(new Coordinate(validValue, validValue), PebbleColor.BLACK);
+        testMap.put(validCoordinate, PebbleColor.BLACK);
 
         assertTrue(testHook.isValidBoardConfiguration(testMap));
+
+        testMap.remove(validCoordinate);
     }
 }
