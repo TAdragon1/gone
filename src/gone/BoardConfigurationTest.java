@@ -12,10 +12,31 @@ import static org.junit.Assert.assertTrue;
 
 public class BoardConfigurationTest {
 
+    /* METHODS TESTED SO FAR:
+        isValidBoardConfiguration
+        blackRemains
+
+       @TODO
+       METHODS TO BE TESTED:
+       BoardConfiguration
+       ReplacePebblesOnce
+       whitePebbleCoordinates
+       hasUnvisitedBlackCoordinates
+       updateNeighbors
+     */
+
+
     private static final int invalidValue = -1;
     private static final int validValue = 1;
-    private static final BoardConfiguration.BoardConfigurationTestHook testHook = new BoardConfiguration.BoardConfigurationTestHook();
-    private static final Map<Coordinate, PebbleColor> testMap = new HashMap<>();
+    private static final BoardConfiguration.BoardConfigurationTestHook testHook;
+    private static final Map<Coordinate, PebbleColor> testMap;
+    private static final Coordinate validCoordinate;
+
+    static {
+        testHook = new BoardConfiguration.BoardConfigurationTestHook();
+        testMap = new HashMap<>();
+        validCoordinate = new Coordinate(validValue, validValue);
+    }
 
     @Test
     public void isValidBoardConfigurationReturnsFalseForEachInvalidCoordinate(){
@@ -35,11 +56,29 @@ public class BoardConfigurationTest {
 
     @Test
     public void isValidBoardConfigurationReturnsTrueOnValidCoordinate(){
-        Coordinate validCoordinate = new Coordinate(validValue, validValue);
-
         testMap.put(validCoordinate, PebbleColor.BLACK);
 
         assertTrue(testHook.isValidBoardConfiguration(testMap));
+
+        testMap.remove(validCoordinate);
+    }
+
+    @Test
+    public void blackRemainsReturnsFalseWhenNoBlackCoordinatesInBoardConfiguration(){
+        testMap.put(validCoordinate, PebbleColor.WHITE);
+        BoardConfiguration noBlackCoordinatesConfiguration = new BoardConfiguration(testMap);
+
+        assertFalse(noBlackCoordinatesConfiguration.blackRemains());
+
+        testMap.remove(validCoordinate);
+    }
+
+    @Test
+    public void blackRemainsReturnsTrueWhenBlackCoordinatesInBoardConfiguration(){
+        testMap.put(validCoordinate, PebbleColor.BLACK);
+        BoardConfiguration blackCoordinatesConfiguration = new BoardConfiguration(testMap);
+
+        assertTrue(blackCoordinatesConfiguration.blackRemains());
 
         testMap.remove(validCoordinate);
     }
