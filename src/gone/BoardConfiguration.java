@@ -65,6 +65,11 @@ public class BoardConfiguration {
 		public boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap){
 			return BoardConfiguration.isValidBoardConfiguration(boardMap);
 		}
+
+		public Set<Coordinate> whitePebbleCoordinates(Map<Coordinate, PebbleColor> boardMap){
+			BoardConfiguration boardConfiguration = new BoardConfiguration(boardMap);
+			return boardConfiguration.whitePebbleCoordinates();
+		}
 	}
 
 	// Input: None
