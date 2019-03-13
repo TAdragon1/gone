@@ -102,11 +102,11 @@ public class BoardConfigurationTest {
         testMap.put(blackCoordinate, PebbleColor.BLACK);
 
         // Act
-        Set<Coordinate> testWhitePebbleCoordinate = testHook.whitePebbleCoordinates(testMap);
+        Set<Coordinate> testWhitePebbleCoordinates = testHook.whitePebbleCoordinates(testMap);
 
         // Assert
-        assertTrue(testWhitePebbleCoordinate.contains(whiteCoordinate));
-        assertFalse(testWhitePebbleCoordinate.contains(blackCoordinate));
+        assertTrue(testWhitePebbleCoordinates.contains(whiteCoordinate));
+        assertFalse(testWhitePebbleCoordinates.contains(blackCoordinate));
 
         // Clean up
         testMap.remove(whiteCoordinate);
