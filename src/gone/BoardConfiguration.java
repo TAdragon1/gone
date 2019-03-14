@@ -40,24 +40,13 @@ public class BoardConfiguration {
 	// Input: A Map of tuple of coordinates to PebbleColor values possibleBoardMap
 	// Output: true if the possibleBoardMap is valid, and false otherwise
 	private static boolean isValidBoardConfiguration(Map<Coordinate, PebbleColor> boardMap) {
-
-		// validCoordinates <- true
-		//boolean validCoordinates = true;
+		/* validCoordinates <- true
+		   Foreach coordinate tuple in the set of keys in the possibleBoardMap Do
+		   If either value in the tuple is negative Then
+		   validCoordinates <- false
+		   Break out of the Foreach loop
+		   Return validCoordinates */
 		return boardMap.keySet().stream().anyMatch((c) -> (!(c.getX() < 0 || c.getY() < 0)));
-//		findInvalidCoordinates:
-//		//Foreach coordinate tuple in the set of keys in the possibleBoardMap Do
-//		for(Coordinate coordinate : boardMap.keySet()) {
-//			// If either value in the tuple is negative Then
-//			if(coordinate.getX() < 0 || coordinate.getY() < 0) {
-//				// validCoordinates <- false
-//				validCoordinates = false;
-//
-//				// Break out of the Foreach loop
-//				break findInvalidCoordinates;
-//			}
-//		}
-//		// Return validCoordinates
-		//return validCoordinates;
 	}
 
 	public static class BoardConfigurationTestHook{
@@ -96,7 +85,6 @@ public class BoardConfiguration {
 	// Input: None
 	// Output: A Set of all tuples of coordinates mapped to white pebble color in this boardMap
 	private Set<Coordinate> whitePebbleCoordinates(){
-
 		/* Foreach coordinate tuple in the set of keys in this boardMap Do
 		   If boardMap value at coordinate tuple is white then
 		   add coordinate to whiteCoordinates */
@@ -110,12 +98,12 @@ public class BoardConfiguration {
 	// Input: None
 	// Output: A boolean value that is true when there is a black pebble remaining on the board and false otherwise
 	boolean blackRemains() {
-		// blackPebbleFound <- false;
-		// Foreach coordinate tuple in the set of keys in this boardMap Do
-		// If boardMap value at coordinate is black then
-		// blackPebbleFound <- true;
-		// break from the Foreach loop
-		// Return blackPebbleFound;
+		/* blackPebbleFound <- false;
+		   Foreach coordinate tuple in the set of keys in this boardMap Do
+		   If boardMap value at coordinate is black then
+		   blackPebbleFound <- true;
+		   break from the Foreach loop
+		   Return blackPebbleFound; */
 		return boardMap.keySet().stream().anyMatch((c) -> boardMap.get(c) == PebbleColor.BLACK);
 	}
 
